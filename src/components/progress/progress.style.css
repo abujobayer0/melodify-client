@@ -1,0 +1,30 @@
+.progress-9 {
+  --r1: 154%;
+  --r2: 68.5%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(
+      var(--r1) var(--r2) at top,
+      #1b2640 79.5%,
+      #9333ea 80%
+    ),
+    radial-gradient(var(--r1) var(--r2) at bottom, #9333ea 79.5%, #1b2640 80%),
+    radial-gradient(var(--r1) var(--r2) at top, #1b2640 79.5%, #9333ea 80%),
+    #1b2640;
+  background-size: 50.5% 220%;
+  background-position: -100% 0%, 0% 0%, 100% 0%;
+  background-repeat: no-repeat;
+  animation: p9 5s infinite linear;
+}
+@keyframes p9 {
+  33% {
+    background-position: 0% 33%, 100% 33%, 200% 33%;
+  }
+  66% {
+    background-position: -100% 66%, 0% 66%, 100% 66%;
+  }
+  100% {
+    background-position: 0% 100%, 100% 100%, 200% 100%;
+  }
+}

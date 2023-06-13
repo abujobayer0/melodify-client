@@ -1,0 +1,53 @@
+{
+  "name": "tune-learn",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.4",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.54.0",
+    "@tanstack/react-query": "^4.29.12",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
+    "faker": "^6.6.6",
+    "firebase": "^9.22.1",
+    "framer-motion": "^10.12.16",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "pg-hstore": "^2.3.4",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-icons": "^4.9.0",
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.12.0",
+    "react-tilt": "^1.0.2",
+    "sort-by": "^1.2.0",
+    "sweetalert2": "^11.7.12",
+    "swiper": "^9.3.2",
+    "tilt": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "vite": "^4.3.9"
+  }
+}
