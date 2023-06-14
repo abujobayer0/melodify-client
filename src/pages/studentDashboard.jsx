@@ -20,30 +20,41 @@ import app from "../utils/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useGetData } from "../hooks/useGetData";
 const auth = getAuth(app);
 const StudentDashboard = () => {
   const [user] = useAuthState(auth);
   const [index, setIndex] = useState(0);
-  const [selectedClassCount, setSelectedClassCount] = useState(0);
-  const [enrolledClasses, setEnrolledClasses] = useState([]);
-  const [totalEnrolledCount, setTotalEnrolledCount] = useState(0);
-  useEffect(() => {
-    fetch(
-      `https://melodify-server.onrender.com/selectedClass/count?email=${user.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => setSelectedClassCount(data.count));
-  }, [index]);
-  useEffect(() => {
-    fetch(
-      `https://melodify-server.onrender.com/payment/history?email=${user.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setTotalEnrolledCount(data.count);
-        setEnrolledClasses(data.result);
-      });
-  }, [index]);
+  // const [selectedClassCount, setSelectedClassCount] = useState(0);
+  // const [enrolledClasses, setEnrolledClasses] = useState([]);
+  // const [totalEnrolledCount, setTotalEnrolledCount] = useState(0);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://melodify-server.onrender.com/selectedClass/count?email=${user.email}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setSelectedClassCount(data.count));
+  // }, [index]);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://melodify-server.onrender.com/payment/history?email=${user.email}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setTotalEnrolledCount(data.count);
+  //       setEnrolledClasses(data.result);
+  //     });
+  // }, [index]);
+  const { data: selectedClassCount } = useGetData(
+    `/selectedClass/count?email=${user.email}`
+  );
+  const { data, isLoading } = useGetData(
+    `/payment/history?email=${user.email}`
+  );
+  console.log(data);
+  const enrolledClasses = !isLoading && data.result;
+  const totalEnrolledCount = !isLoading && data.count;
+  console.log(selectedClassCount);
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -151,7 +162,7 @@ const StudentDashboard = () => {
                 <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
                   <div className="w-full bg-blue-400 h-48 flex flex-col justify-end items-start p-4 text-xl uppercase text-gray-200 gap-10 rounded-lg">
                     <span className="flex w-full items-start gap-2 text-7xl justify-start mt-2">
-                      {selectedClassCount}
+                      {selectedClassCount && selectedClassCount.count}
                     </span>
                     Total Selected Classes{" "}
                   </div>

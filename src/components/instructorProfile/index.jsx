@@ -70,6 +70,16 @@ const InstructorProfile = () => {
   );
 
   const mySelectUnderInstructor = mineSelected?.length;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const question = e.target.question.value;
+    const QA = {
+      question: question,
+      user: user,
+      instructor: !loading && instructor[0],
+    };
+    console.log(QA);
+  };
   const handleSelect = (selectedClass) => {
     const selectedClasses = {
       email: user?.email,
@@ -133,6 +143,7 @@ const InstructorProfile = () => {
         });
       });
   };
+  const role = localStorage.getItem("role");
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -209,16 +220,18 @@ const InstructorProfile = () => {
                   </div>
                   <div className="w-full lg:w-4/12 px-4 pt-4 lg:order-1">
                     <div className="flex justify-start flex-wrap  text-gray-200 pb-2 lg:pt-4 ">
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
-                          {mySelectUnderInstructor
-                            ? mySelectUnderInstructor
-                            : 0}
-                        </span>
-                        <span className="text-sm text-gray-200">
-                          You Selected
-                        </span>
-                      </div>
+                      {role && instructor[0]?.role === "student" && (
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
+                            {mySelectUnderInstructor
+                              ? mySelectUnderInstructor
+                              : 0}
+                          </span>
+                          <span className="text-sm text-gray-200">
+                            You Selected
+                          </span>
+                        </div>
+                      )}
                       <div className="mr-4 p-3 text-center">
                         <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
                           {activeCount ? activeCount : 0}
@@ -259,53 +272,89 @@ const InstructorProfile = () => {
                     </div>
                   </div>
                 </div>
-                <Accordion sx={{ padding: 0 }}>
-                  <AccordionSummary
-                    expandIcon={
-                      <ExpandMore
-                        sx={{ backgroundColor: "#1b2640", color: "#a855f7" }}
-                      />
+                {!loading && (
+                  <Accordion
+                    disabled={
+                      !loading &&
+                      ((instructor[0]?.role && role === "instructor") ||
+                        (instructor[0]?.role && role === "admin"))
                     }
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    sx={{ backgroundColor: "#1b2640", color: "#fff" }}
+                    sx={{ padding: 0 }}
                   >
-                    <Typography
-                      sx={{
-                        display: "flex",
-                        fontSize: { sm: "sm", md: "lg" },
-                        alignItem: "center",
-                      }}
+                    <AccordionSummary
+                      expandIcon={
+                        <ExpandMore
+                          sx={{ backgroundColor: "#1b2640", color: "#a855f7" }}
+                        />
+                      }
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                      sx={{ backgroundColor: "#1b2640", color: "#fff" }}
                     >
-                      <span className="text-purple-500 flex items-center gap-2 px-2">
-                        {!loading && <>{instructor[0]?.name}</>}
-                        <BsFillPatchQuestionFill />
-                      </span>
-                      ask any query?
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails
-                    sx={{ backgroundColor: "#1b2640", color: "#fff" }}
-                  >
-                    <Typography>
-                      <form>
-                        <div className="input-box gap-0 flex items-center">
-                          <BsFillPatchQuestionFill className="text-purple-500 text-xl mx-2 " />
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          fontSize: { sm: "sm", md: "lg" },
+                          alignItem: "center",
+                        }}
+                      >
+                        <span className="text-purple-500 flex items-center gap-2 px-2">
+                          {!loading && <>{instructor[0]?.name}</>}
+                          <BsFillPatchQuestionFill />
+                        </span>
+                        {(!loading &&
+                          instructor[0]?.role &&
+                          role === "instructor") ||
+                        "admin"
+                          ? "admin and instructor can't send question"
+                          : "ask any query?"}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails
+                      sx={{ backgroundColor: "#1b2640", color: "#fff" }}
+                    >
+                      <Typography>
+                        <form onSubmit={handleSubmit}>
+                          <div className="input-box gap-0 flex items-center">
+                            <BsFillPatchQuestionFill className="text-purple-500 text-xl mx-2 " />
 
-                          <input
-                            type="email"
-                            placeholder="Enter your Question ??"
-                            name="email"
-                            className="px-5 w-full outline-dashed outline-purple-500 focus:border-none border-none focus:outline-purple-500 bg-lightCard"
-                          />
-                          <Button sx={{ color: "#a855f7", outline: "none" }}>
-                            <Send />
-                          </Button>
-                        </div>
-                      </form>
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                            <input
+                              type="text"
+                              placeholder={`${
+                                (!loading &&
+                                  instructor[0]?.role &&
+                                  role === "instructor") ||
+                                (instructor[0]?.role && role === "admin")
+                                  ? "Not Available "
+                                  : "Send Your Question"
+                              }`}
+                              name="question"
+                              disabled={
+                                !loading &&
+                                ((instructor[0]?.role &&
+                                  role === "instructor") ||
+                                  (instructor[0]?.role && role === "admin"))
+                              }
+                              className="px-5 w-full outline-dashed outline-purple-500 focus:border-none border-none focus:outline-purple-500 bg-lightCard"
+                            />
+                            <Button
+                              disabled={
+                                !loading &&
+                                ((instructor[0]?.role &&
+                                  role === "instructor") ||
+                                  (instructor[0]?.role && role === "admin"))
+                              }
+                              type="submit"
+                              sx={{ color: "#a855f7", outline: "none" }}
+                            >
+                              <Send />
+                            </Button>
+                          </div>
+                        </form>
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                )}
               </div>
             </div>
           </div>

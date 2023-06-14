@@ -115,13 +115,12 @@ const LoginPage = () => {
         const user = userCredential.user;
         setLoadingLogin(true);
 
-        form.reset();
         fetch(`https://melodify-server.onrender.com/user?email=${user?.email}`)
           .then((res) => res.json())
           .then((data) => {
             localStorage.setItem("role", data[0]?.role);
             setLoadingLogin(false);
-
+            form.reset();
             navigate(from);
           });
       })

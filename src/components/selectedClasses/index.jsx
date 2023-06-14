@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { BsTrash } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useGetData } from "../../hooks/useGetData";
 
 const auth = getAuth(app);
 
@@ -24,22 +25,27 @@ const SelectedClasses = () => {
   const theme = useTheme();
   const [fetchStatus, setFetch] = useState(false);
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [selectedClasses, setSelectedClasses] = useState([]);
-  console.log(selectedClasses);
-  useEffect(() => {
-    fetch(
-      `https://melodify-server.onrender.com/user/selectedClass?email=${user?.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => setSelectedClasses(data));
-  }, [fetchStatus]);
+  // const [selectedClasses, setSelectedClasses] = useState([]);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://melodify-server.onrender.com/user/selectedClass?email=${user?.email}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setSelectedClasses(data));
+  // }, [fetchStatus]);
+  const {
+    data: selectedClasses,
+    isLoading,
+    refetch,
+  } = useGetData(`/user/selectedClass?email=${user?.email}`);
   const deleteSelected = (id) => {
     fetch(`https://melodify-server.onrender.com/user/selectedClass/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
-        setFetch((prev) => !prev);
+        // setFetch((prev) => !prev);
+        refetch();
       });
   };
   return (
@@ -47,7 +53,8 @@ const SelectedClasses = () => {
       <TableContainer
         sx={{
           backgroundColor: "#1b2640",
-          minHeight: selectedClasses.length === 0 && "100vh",
+          minHeight:
+            selectedClasses && selectedClasses?.length === 0 && "100vh",
           borderRadius: "10px",
         }}
         component={Paper}
@@ -65,64 +72,66 @@ const SelectedClasses = () => {
           </TableHead>
 
           <TableBody>
-            {selectedClasses.map((classItem, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <img
-                    className="w-14 rounded-md"
-                    src={classItem.selectedClass.newClass.image}
-                    alt=""
-                  />
-                </TableCell>
-                <TableCell sx={{ color: "#fff" }}>
-                  {classItem.selectedClass.newClass.name.length > 20
-                    ? classItem.selectedClass.newClass.name.slice(0, 20) + "..."
-                    : classItem.selectedClass.newClass.name}
-                </TableCell>
-                <TableCell sx={{ color: "#fff" }}>
-                  {classItem.selectedClass.newClass.email}
-                </TableCell>
-                <TableCell sx={{ color: "#fff" }}>
-                  <Link to={`/class/enroll/payment/${classItem._id}`}>
+            {!isLoading &&
+              selectedClasses.map((classItem, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <img
+                      className="w-14 rounded-md"
+                      src={classItem.selectedClass.newClass.image}
+                      alt=""
+                    />
+                  </TableCell>
+                  <TableCell sx={{ color: "#fff" }}>
+                    {classItem.selectedClass.newClass.name.length > 20
+                      ? classItem.selectedClass.newClass.name.slice(0, 20) +
+                        "..."
+                      : classItem.selectedClass.newClass.name}
+                  </TableCell>
+                  <TableCell sx={{ color: "#fff" }}>
+                    {classItem.selectedClass.newClass.email}
+                  </TableCell>
+                  <TableCell sx={{ color: "#fff" }}>
+                    <Link to={`/class/enroll/payment/${classItem._id}`}>
+                      <Button
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center ",
+                          background: "#ac8fcb",
+                          color: "white",
+                          "&&:hover": {
+                            background: "#ac8fcb",
+                          },
+                        }}
+                      >
+                        {" "}
+                        <BsTrash />
+                        Pay
+                      </Button>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
                     <Button
                       sx={{
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center ",
-                        background: "#ac8fcb",
+                        background: "#f87171",
                         color: "white",
                         "&&:hover": {
-                          background: "#ac8fcb",
+                          background: "red",
                         },
                       }}
+                      onClick={() => deleteSelected(classItem._id)}
                     >
                       {" "}
                       <BsTrash />
-                      Pay
+                      Remove
                     </Button>
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Button
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center ",
-                      background: "#f87171",
-                      color: "white",
-                      "&&:hover": {
-                        background: "red",
-                      },
-                    }}
-                    onClick={() => deleteSelected(classItem._id)}
-                  >
-                    {" "}
-                    <BsTrash />
-                    Remove
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
