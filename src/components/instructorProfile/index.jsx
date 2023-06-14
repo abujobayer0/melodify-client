@@ -8,7 +8,12 @@ import {
 } from "@mui/material";
 
 import { NavBar, Footer } from "../";
-import { FaChalkboardTeacher, FaEnvelope } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaChalkboardTeacher,
+  FaEnvelope,
+} from "react-icons/fa";
 
 import { useGetData } from "../../hooks/useGetData";
 
@@ -52,7 +57,11 @@ const InstructorProfile = () => {
     isLoading: selectedLoading,
     error: selectedError,
   } = useGetData(`/user/selectedClass?email=${user?.email}`);
-  const { data: qa, isLoading: qaLoading } = useGetData(
+  const {
+    data: qa,
+    isLoading: qaLoading,
+    refetch,
+  } = useGetData(
     `/question-answer?email=${user?.email}&&instructorEmail=${
       !loading && instructor[0]?.email
     }`
@@ -82,6 +91,7 @@ const InstructorProfile = () => {
     const QA = {
       question: question,
       user: user,
+
       instructor: !loading && instructor[0],
     };
     console.log(QA);
@@ -106,6 +116,7 @@ const InstructorProfile = () => {
           icon: "custom-swal-icon",
         },
       });
+      refetch();
       form.reset();
     } else {
       Swal.fire({
@@ -358,30 +369,46 @@ const InstructorProfile = () => {
                       <Typography>
                         <div>
                           {!qaLoading && (
-                            <>
+                            <div className="w-full max-h-96 overflow-y-auto">
                               {qa?.map((item) => (
                                 <div className="border-2 border-gray-500 rounded-lg my-4 px-2 md:px-5">
                                   <h1 className="text-end flex flex-col  text-gray-200 my-2">
-                                    <span className="text-xs text-green-500">
+                                    <span className="text-xs flex my-2 justify-end items-center gap-2 text-green-500">
                                       {item?.user?.displayName}
+                                      <img
+                                        src={item?.user?.photoURL}
+                                        className="w-6 rounded-full h-6"
+                                        alt=""
+                                      />
                                     </span>
-                                    {item?.question}
+                                    <span className="flex justify-end gap-2 items-center">
+                                      {item?.question}
+                                      <FaArrowLeft className="text-xs text-green-500 " />
+                                    </span>
                                   </h1>
                                   <h1 className="text-start flex flex-col text-gray-200 my-2">
-                                    <span className="text-xs text-purple-500">
+                                    <span className="text-xs flex my-2 justify-start items-center gap-2 text-purple-500">
+                                      <img
+                                        src={item?.instructor?.image}
+                                        className="w-6 rounded-full h-6"
+                                        alt=""
+                                      />
                                       {item?.instructor?.name}
                                     </span>
-                                    {item?.answer ? (
-                                      item?.answer
-                                    ) : (
-                                      <span className="text-yellow-400">
-                                        "Pending..."
-                                      </span>
-                                    )}
+                                    <span className="flex justify-start gap-2 my-2 items-center">
+                                      <FaArrowRight className="text-xs text-purple-500 " />
+                                      {item?.answer ? (
+                                        item?.answer
+                                      ) : (
+                                        <span className="text-yellow-400">
+                                          Pending...
+                                        </span>
+                                      )}
+                                    </span>
                                   </h1>
                                 </div>
                               ))}
-                            </>
+                            </div>
                           )}
                         </div>
                         <form onSubmit={handleSubmit}>

@@ -13,6 +13,8 @@ import { getAuth, updateProfile } from "firebase/auth";
 import app from "../utils/firebase.init";
 import { useGetData } from "../hooks/useGetData";
 import {
+  FaArrowLeft,
+  FaArrowRight,
   FaChalkboardTeacher,
   FaEdit,
   FaEnvelope,
@@ -147,6 +149,11 @@ const ProfilePage = () => {
       });
     }
   };
+  const {
+    data: qa,
+    isLoading: qaLoading,
+    refetch: qaRefetch,
+  } = useGetData(`/user/question-answer?email=${user?.email}`);
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -255,25 +262,55 @@ const ProfilePage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full lg:w-4/12 my-16 px-2 lg:order-3  lg:text-right flex-col rounded lg:flex h-44 overflow-y-auto hidden justify-start  items-start lg:self-center">
+                  <div className="w-full lg:w-4/12 my-16 px-2 lg:order-3  lg:text-right flex-col rounded lg:flex h-44 overflow-y-auto  justify-start  items-start lg:self-center">
                     <h1 className="absolute top-10 text-gray-400">Q&A</h1>
-                    <div>
-                      <div className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-full justify-end items-end">
-                        <h1 className="text-xs  text-green-400">
-                          Tell me About Your Course
-                        </h1>
-                        <div className="w-full  text-start  text-purple-400 text-sm ">
-                          lorem400
-                        </div>
-                        <div className="text-start text-gray-300 text-xs">
-                          Lorem ipsum, dolor sit amet consectetur adipisicing
-                          elit. Accusantium, placeat?
-                        </div>
+                    {!qaLoading ? (
+                      <div className="">
+                        {qa?.map((item, indx) => (
+                          <div
+                            key={indx}
+                            className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-lg "
+                          >
+                            <h1 className="text-xs flex flex-col my-2 justify-end text-end text-gray-200">
+                              <span className="w-full my-2 flex text-end justify-end gap-2 items-center text-green-400">
+                                me
+                                <img
+                                  src={item?.user?.photoURL}
+                                  className="w-6 rounded-full h-6"
+                                  alt=""
+                                />{" "}
+                              </span>
+                              <span className="flex w-full items-center gap-2 justify-end">
+                                {item?.question}
+                                <FaArrowLeft className="text-green-500" />
+                              </span>
+                            </h1>
+                            <div className="w-full flex text-start items-center gap-2 text-purple-400 text-sm ">
+                              <img
+                                src={item?.instructor?.image}
+                                className="w-6 rounded-full h-6"
+                                alt=""
+                              />
+                              {item?.instructor?.name}
+                            </div>
+                            <div className="text-start flex items-center gap-2 my-2 justify-start  relative text-gray-300 text-xs">
+                              <FaArrowRight className="text-purple-500" />
+                              {item?.answer ? (
+                                item?.answer
+                              ) : (
+                                <span className="flex justify-start text-start  w-full items-start ">
+                                  Pending...
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        ))}
                       </div>
+                    ) : (
                       <h1 className="text-gray-400 flex justify-center items-center mx-auto">
                         No Data
                       </h1>
-                    </div>
+                    )}
                   </div>
                   <div className="w-full lg:w-4/12 px-4 pt-4 lg:order-1">
                     <div className="flex justify-start flex-wrap  text-gray-200 pb-2 lg:pt-4 ">
