@@ -2,7 +2,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
   CircularProgress,
   Divider,
   Typography,
@@ -22,7 +21,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-import { Edit, Send } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 
 import { BsTelephoneFill } from "react-icons/bs";
 import { useRef } from "react";
@@ -30,7 +29,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { usePutData } from "../hooks/usePutData";
 import { useEffect } from "react";
-
+import teaching from "../assets/teaching.svg";
 const auth = getAuth(app);
 const ProfilePage = () => {
   const [user] = useAuthState(auth);
@@ -44,11 +43,9 @@ const ProfilePage = () => {
   console.log(error);
   const [imageUploading, setImageUploading] = useState(false);
   const [image, setImage] = useState("");
-  const {
-    mutate: imageUpdate,
-    error: imageError,
-    isLoading: imageUploadLoading,
-  } = usePutData(`/update/user/profile/image?email=${user?.email}`);
+  const { mutate: imageUpdate } = usePutData(
+    `/update/user/profile/image?email=${user?.email}`
+  );
   const uploadImage = async () => {
     setImageUploading(true);
     const localImage = localImageRef.current.files[0];
@@ -91,22 +88,16 @@ const ProfilePage = () => {
     }
   };
 
-  const {
-    data: totalSelected,
-    isLoading: selectedLoading,
-    error: selectedError,
-  } = useGetData(`/user/selectedClass?email=${user?.email}`);
-  const {
-    data: enrolledCount,
-    isLoading: enrolledLoading,
-    error: enrolledError,
-  } = useGetData(`/payment/history?email=${user.email}`);
+  const { data: totalSelected, isLoading: selectedLoading } = useGetData(
+    `/user/selectedClass?email=${user?.email}`
+  );
+  const { data: enrolledCount, isLoading: enrolledLoading } = useGetData(
+    `/payment/history?email=${user.email}`
+  );
   const enrolledTotal = enrolledCount?.count;
   const {
     mutate,
-    isLoading,
-    error: mutateError,
-    data,
+
     isError,
   } = usePutData(`/update/user?email=${user?.email}`);
 
@@ -158,6 +149,8 @@ const ProfilePage = () => {
   useEffect(() => {
     qaRefetch();
   }, []);
+  const role = localStorage.getItem("role");
+  const userRole = student && student[0]?.role;
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -266,54 +259,69 @@ const ProfilePage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full lg:w-4/12 my-16 px-2 lg:order-3  lg:text-right flex-col rounded lg:flex h-44 overflow-y-auto  justify-start  items-start lg:self-center">
-                    <h1 className="absolute top-10 text-gray-400">Q&A</h1>
-                    {!qaLoading ? (
-                      <div className="">
-                        {qa?.map((item, indx) => (
-                          <div
-                            key={indx}
-                            className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-lg "
-                          >
-                            <h1 className="text-xs flex flex-col my-2 justify-end text-end text-gray-200">
-                              <span className="w-full my-2 flex text-end justify-end gap-2 items-center text-green-400">
-                                me
-                                <img
-                                  src={item?.user?.photoURL}
-                                  className="w-6 rounded-full h-6"
-                                  alt=""
-                                />{" "}
-                              </span>
-                              <span className="flex w-full items-center gap-2 justify-end">
-                                {item?.question}
-                                <FaArrowLeft className="text-green-500" />
-                              </span>
-                            </h1>
-                            <div className="w-full flex text-start items-center gap-2 text-purple-400 text-sm ">
-                              <img
-                                src={item?.instructor?.image}
-                                className="w-6 rounded-full h-6"
-                                alt=""
-                              />
-                              {item?.instructor?.name}
-                            </div>
-                            <div className="text-start flex items-center gap-2 my-2 justify-start  relative text-gray-300 text-xs">
-                              <FaArrowRight className="text-purple-500" />
-                              {item?.answer ? (
-                                item?.answer
-                              ) : (
-                                <span className="flex justify-start text-start  w-full items-start ">
-                                  Pending...
-                                </span>
-                              )}
-                            </div>
+                  <div
+                    className={`w-full lg:w-4/12 my-16 px-2 lg:order-3  lg:text-right flex-col rounded lg:flex ${
+                      role && userRole === "student" ? "h-44" : "h-auto"
+                    } overflow-y-auto  justify-start  items-start lg:self-center`}
+                  >
+                    {role && userRole === "student" ? (
+                      <>
+                        <h1 className="absolute top-10 text-gray-400">Q&A</h1>
+                        {!qaLoading ? (
+                          <div className="">
+                            {qa?.map((item, indx) => (
+                              <div
+                                key={indx}
+                                className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-lg "
+                              >
+                                <h1 className="text-xs flex flex-col my-2 justify-end text-end text-gray-200">
+                                  <span className="w-full my-2 flex text-end justify-end gap-2 items-center text-green-400">
+                                    me
+                                    <img
+                                      src={item?.user?.photoURL}
+                                      className="w-6 rounded-full h-6"
+                                      alt=""
+                                    />{" "}
+                                  </span>
+                                  <span className="flex w-full items-center gap-2 justify-end">
+                                    {item?.question}
+                                    <FaArrowLeft className="text-green-500" />
+                                  </span>
+                                </h1>
+                                <div className="w-full flex text-start items-center gap-2 text-purple-400 text-sm ">
+                                  <img
+                                    src={item?.instructor?.image}
+                                    className="w-6 rounded-full h-6"
+                                    alt=""
+                                  />
+                                  {item?.instructor?.name}
+                                </div>
+                                <div className="text-start flex items-center gap-2 my-2 justify-start  relative text-gray-300 text-xs">
+                                  <FaArrowRight className="text-purple-500" />
+                                  {item?.answer ? (
+                                    item?.answer
+                                  ) : (
+                                    <span className="flex justify-start text-start  w-full items-start ">
+                                      Pending...
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
+                        ) : (
+                          <h1 className="text-gray-400 flex justify-center items-center mx-auto">
+                            No Data
+                          </h1>
+                        )}
+                      </>
                     ) : (
-                      <h1 className="text-gray-400 flex justify-center items-center mx-auto">
-                        No Data
-                      </h1>
+                      <div className="w-full flex flex-col gap-2  text-purple-500">
+                        <span className="my-2 headline">
+                          Welcome Back Instructor
+                        </span>
+                        <img src={teaching} alt="" />
+                      </div>
                     )}
                   </div>
                   <div className="w-full lg:w-4/12 px-4 pt-4 lg:order-1">

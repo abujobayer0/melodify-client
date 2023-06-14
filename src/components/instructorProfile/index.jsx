@@ -63,8 +63,7 @@ const InstructorProfile = () => {
   const approvedClasses = classes?.filter(
     (i) => i.newClass.status === "approved"
   );
-  console.log(error);
-  console.log("total selected", totalSelected);
+
   const activeCount = classes?.reduce((count, item) => {
     if (item.newClass.status === "approved") {
       count++;
@@ -95,7 +94,7 @@ const InstructorProfile = () => {
     };
 
     if (question) {
-      fetch("http://localhost:7000/user/question-answers", {
+      fetch("https://melodify-server.onrender.com/user/question-answers", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
