@@ -10,6 +10,7 @@ const Payment = ({
   instructor,
   image,
   itemId,
+  instructorEmail,
   seat,
   userEmail,
   id,
@@ -23,6 +24,7 @@ const Payment = ({
           name={name}
           userEmail={userEmail}
           instructor={instructor}
+          instructorEmail={instructorEmail}
           email={email}
           seat={seat}
           id={id}

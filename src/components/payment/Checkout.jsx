@@ -8,7 +8,16 @@ import Swal from "sweetalert2";
 import app from "../../utils/firebase.init";
 import axios from "axios";
 const auth = getAuth(app);
-const Checkout = ({ price, image, instructor, name, itemId, seat, id }) => {
+const Checkout = ({
+  price,
+  image,
+  instructor,
+  instructorEmail,
+  name,
+  itemId,
+  seat,
+  id,
+}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
@@ -18,7 +27,7 @@ const Checkout = ({ price, image, instructor, name, itemId, seat, id }) => {
   const [transactionId, setTransactionId] = useState("");
   const [error, setError] = useState("");
   const [user] = useAuthState(auth);
-
+  console.log(instructorEmail);
   useEffect(() => {
     axios
       .post(
@@ -95,6 +104,7 @@ const Checkout = ({ price, image, instructor, name, itemId, seat, id }) => {
           name: name,
           instructor: instructor,
           image: image,
+          instructorEmail: instructorEmail,
         };
 
         const [enrollResponse, paymentResponse, selectedClassResponse] =

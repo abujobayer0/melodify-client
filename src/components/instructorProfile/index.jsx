@@ -70,7 +70,7 @@ const InstructorProfile = () => {
     (i) => i.newClass.status === "approved"
   );
   console.log(error);
-  console.log(totalSelected);
+  console.log("total selected", totalSelected);
   const activeCount = classes?.reduce((count, item) => {
     if (item.newClass.status === "approved") {
       count++;
@@ -83,6 +83,11 @@ const InstructorProfile = () => {
 
   const mySelectUnderInstructor = mineSelected?.length;
 
+  const { data: enrolled } = useGetData(
+    `/enrolled/single/instructor?email=${user?.email}&&instructorEmail=${email}`
+  );
+
+  console.log("total enrolled count from serfver", user?.email, email);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -94,7 +99,7 @@ const InstructorProfile = () => {
 
       instructor: !loading && instructor[0],
     };
-    console.log(QA);
+
     if (question) {
       fetch("http://localhost:7000/user/question-answers", {
         method: "POST",
@@ -285,6 +290,20 @@ const InstructorProfile = () => {
                               </span>
                               <span className="text-sm text-gray-200">
                                 You Selected
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {instructor && (
+                        <>
+                          {role === "student" && (
+                            <div className="mr-4 p-3 text-center">
+                              <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
+                                {enrolled ? enrolled?.count : 0}
+                              </span>
+                              <span className="text-sm text-gray-200">
+                                You Enrolled
                               </span>
                             </div>
                           )}

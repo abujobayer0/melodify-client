@@ -18,7 +18,8 @@ const PaymentPage = () => {
   } = useGetData(`/user/selectedClass/${id}/${user?.email}`);
   console.log(error);
   const price = item?.selectedClass?.newClass?.price;
-
+  const Instructoremail = item?.selectedClass?.newClass?.email;
+  console.log(Instructoremail);
   return (
     <div className="bg-dark  flex flex-col justify-between   w-full ">
       <NavBar isBlack />
@@ -114,6 +115,7 @@ const PaymentPage = () => {
             image={item?.selectedClass?.newClass?.image}
             instructor={item?.selectedClass?.newClass?.instructor}
             price={price}
+            instructorEmail={item?.selectedClass?.newClass?.email}
             id={item?.selectedClass?._id}
             itemId={item?._id}
           />
