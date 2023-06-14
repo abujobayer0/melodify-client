@@ -26,14 +26,14 @@ const Dashboard = () => {
   const [enrollCount, setEnrollCount] = useState([]);
   useEffect(() => {
     fetch(
-      `https://melodify-server.onrender.cominstructor/classes?email=${user.email}`
+      `https://melodify-server.onrender.com/instructor/classes?email=${user.email}`
     )
       .then((res) => res.json())
       .then((data) => setClassCount(data));
   }, [index]);
   useEffect(() => {
     fetch(
-      `https://melodify-server.onrender.comenroll/totalLength?email=${user.email}`
+      `https://melodify-server.onrender.com/enroll/totalLength?email=${user.email}`
     )
       .then((res) => res.json())
       .then((data) => setEnrollCount(data));

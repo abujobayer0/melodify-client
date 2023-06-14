@@ -34,12 +34,12 @@ const ManageUsers = () => {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
-    fetch(`https://melodify-server.onrender.comall/classes`)
+    fetch(`https://melodify-server.onrender.com/all/classes`)
       .then((res) => res.json())
       .then((data) => setClasses(data));
   }, [fetchdata]);
   const handleApprove = (id) => {
-    fetch(`https://melodify-server.onrender.comclasses/status?id=${id}`, {
+    fetch(`https://melodify-server.onrender.com/classes/status?id=${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -53,7 +53,7 @@ const ManageUsers = () => {
   };
 
   const handleDenied = (id) => {
-    fetch(`https://melodify-server.onrender.comclasses/status?id=${id}`, {
+    fetch(`https://melodify-server.onrender.com/classes/status?id=${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -67,7 +67,7 @@ const ManageUsers = () => {
   };
 
   const handleSendFeedback = () => {
-    fetch(`https://melodify-server.onrender.comclasses/feedback?id=${id}`, {
+    fetch(`https://melodify-server.onrender.com/classes/feedback?id=${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

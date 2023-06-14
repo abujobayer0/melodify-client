@@ -94,7 +94,7 @@ const InstructorProfile = () => {
 
     axios
       .post(
-        "https://melodify-server.onrender.comuser/selectedClass",
+        "https://melodify-server.onrender.com/user/selectedClass",
         selectedClasses,
         {
           headers: {

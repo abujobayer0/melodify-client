@@ -5,13 +5,16 @@ import { getAuth, signOut } from "firebase/auth";
 import app from "../utils/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useGetData } from "../hooks/useGetData";
+import { PrimaryProgress } from "../components";
 const auth = getAuth(app);
 const RenderDashboard = () => {
   const [user] = useAuthState(auth);
   const roleLocal = localStorage.getItem("role");
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { data } = useGetData(`/user?email=${user?.email}`);
+  const role = data && data[0]?.role;
   if (!user) {
     localStorage.removeItem("role");
     navigate(location.state.from || "/");
@@ -28,9 +31,14 @@ const RenderDashboard = () => {
   }
   return (
     <div>
-      {roleLocal === "instructor" ? <Dashboard /> : ""}
-      {roleLocal === "student" ? <StudentDashboard /> : ""}
-      {roleLocal === "admin" ? <AdminDashboard /> : ""}
+      {!data && (
+        <div className="w-full bg-dark h-screen">
+          <PrimaryProgress />
+        </div>
+      )}
+      {roleLocal && role === "instructor" ? <Dashboard /> : ""}
+      {roleLocal && role === "student" ? <StudentDashboard /> : ""}
+      {roleLocal && role === "admin" ? <AdminDashboard /> : ""}
     </div>
   );
 };

@@ -15,7 +15,7 @@ const InstructorsPage = () => {
   useEffect(() => {
     if (user?.displayName) {
       axios
-        .get(`https://melodify-server.onrender.comuser?email=${user?.email}`)
+        .get(`https://melodify-server.onrender.com/user?email=${user?.email}`)
         .then((response) => {
           const data = response.data;
           localStorage.setItem("role", data[0]?.role);
