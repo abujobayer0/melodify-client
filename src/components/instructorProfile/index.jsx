@@ -44,27 +44,21 @@ const InstructorProfile = () => {
   console.log(classError);
   const {
     data: classes,
-    isLoading,
+
     error,
   } = useGetData(`/instructor/classes?email=${email}`);
-  const {
-    data: enrollStudent,
-    isLoading: enrollCountLoading,
-    error: enrollCountError,
-  } = useGetData(`/enroll/totalLength?email=${email}`);
-  const {
-    data: totalSelected,
-    isLoading: selectedLoading,
-    error: selectedError,
-  } = useGetData(`/user/selectedClass?email=${user?.email}`);
+  const { data: enrollStudent } = useGetData(
+    `/enroll/totalLength?email=${email}`
+  );
+  const { data: totalSelected } = useGetData(
+    `/user/selectedClass?email=${user?.email}`
+  );
   const {
     data: qa,
     isLoading: qaLoading,
     refetch,
   } = useGetData(
-    `/question-answer?email=${user?.email}&&instructorEmail=${
-      !loading && instructor[0]?.email
-    }`
+    `/question-answer?email=${user?.email}&&instructorEmail=${email}`
   );
   const approvedClasses = classes?.filter(
     (i) => i.newClass.status === "approved"

@@ -29,6 +29,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { usePutData } from "../hooks/usePutData";
+import { useEffect } from "react";
 
 const auth = getAuth(app);
 const ProfilePage = () => {
@@ -154,6 +155,9 @@ const ProfilePage = () => {
     isLoading: qaLoading,
     refetch: qaRefetch,
   } = useGetData(`/user/question-answer?email=${user?.email}`);
+  useEffect(() => {
+    qaRefetch();
+  }, []);
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -395,7 +399,6 @@ const ProfilePage = () => {
                     <div
                       className="w-full py-16 relative home  rounded-xl filter "
                       style={{
-                        // backgroundImage: `url(https://images.unsplash.com/photo-1594623930572-300a3011d9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80)`,
                         backgroundPosition: "top left",
                       }}
                     >
