@@ -11,6 +11,7 @@ import { NavBar, Footer } from "../";
 import { FaChalkboardTeacher, FaEnvelope } from "react-icons/fa";
 
 import { useGetData } from "../../hooks/useGetData";
+
 import VideoButton from "../videoButton";
 import { getAuth } from "firebase/auth";
 import app from "../../utils/firebase.init";
@@ -21,10 +22,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ExpandMore, Send } from "@mui/icons-material";
 import { useEffect } from "react";
-import {
-  BsFillFastForwardBtnFill,
-  BsFillPatchQuestionFill,
-} from "react-icons/bs";
+import { BsFillPatchQuestionFill } from "react-icons/bs";
 const auth = getAuth(app);
 const InstructorProfile = () => {
   const { email } = useParams();
@@ -54,6 +52,11 @@ const InstructorProfile = () => {
     isLoading: selectedLoading,
     error: selectedError,
   } = useGetData(`/user/selectedClass?email=${user?.email}`);
+  const { data: qa, isLoading: qaLoading } = useGetData(
+    `/question-answer?email=${user?.email}&&instructorEmail=${
+      !loading && instructor[0]?.email
+    }`
+  );
   const approvedClasses = classes?.filter(
     (i) => i.newClass.status === "approved"
   );
@@ -70,16 +73,55 @@ const InstructorProfile = () => {
   );
 
   const mySelectUnderInstructor = mineSelected?.length;
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const question = e.target.question.value;
+    const form = e.target;
+    const question = form.question.value;
+
     const QA = {
       question: question,
       user: user,
       instructor: !loading && instructor[0],
     };
     console.log(QA);
+    if (question) {
+      fetch("http://localhost:7000/user/question-answers", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ QA }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log("datas", data));
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your Question Send Successfully? !",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          popup: "custom-swal-container",
+          icon: "custom-swal-icon",
+        },
+      });
+      form.reset();
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Can't send emty question !",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          popup: "custom-swal-container",
+          icon: "custom-swal-icon",
+        },
+      });
+    }
   };
+
   const handleSelect = (selectedClass) => {
     const selectedClasses = {
       email: user?.email,
@@ -143,6 +185,7 @@ const InstructorProfile = () => {
         });
       });
   };
+  console.log(qa);
   const role = localStorage.getItem("role");
   return (
     <div className="bg-dark">
@@ -220,17 +263,21 @@ const InstructorProfile = () => {
                   </div>
                   <div className="w-full lg:w-4/12 px-4 pt-4 lg:order-1">
                     <div className="flex justify-start flex-wrap  text-gray-200 pb-2 lg:pt-4 ">
-                      {role && instructor[0]?.role === "student" && (
-                        <div className="mr-4 p-3 text-center">
-                          <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
-                            {mySelectUnderInstructor
-                              ? mySelectUnderInstructor
-                              : 0}
-                          </span>
-                          <span className="text-sm text-gray-200">
-                            You Selected
-                          </span>
-                        </div>
+                      {instructor && (
+                        <>
+                          {role === "student" && (
+                            <div className="mr-4 p-3 text-center">
+                              <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
+                                {mySelectUnderInstructor
+                                  ? mySelectUnderInstructor
+                                  : 0}
+                              </span>
+                              <span className="text-sm text-gray-200">
+                                You Selected
+                              </span>
+                            </div>
+                          )}
+                        </>
                       )}
                       <div className="mr-4 p-3 text-center">
                         <span className="text-sm md:text-xl font-bold block uppercase tracking-wide text-gray-300">
@@ -259,8 +306,8 @@ const InstructorProfile = () => {
                         <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-300"></i>
                         {!loading && (
                           <>
-                            {instructor[0]?.adress
-                              ? instructor[0]?.adress
+                            {instructor[0]?.address
+                              ? instructor[0]?.address
                               : "Unknown"}{" "}
                           </>
                         )}
@@ -275,9 +322,7 @@ const InstructorProfile = () => {
                 {!loading && (
                   <Accordion
                     disabled={
-                      !loading &&
-                      ((instructor[0]?.role && role === "instructor") ||
-                        (instructor[0]?.role && role === "admin"))
+                      !loading && (role === "instructor" || role === "admin")
                     }
                     sx={{ padding: 0 }}
                   >
@@ -302,10 +347,7 @@ const InstructorProfile = () => {
                           {!loading && <>{instructor[0]?.name}</>}
                           <BsFillPatchQuestionFill />
                         </span>
-                        {(!loading &&
-                          instructor[0]?.role &&
-                          role === "instructor") ||
-                        "admin"
+                        {role === "instructor" || role === "admin"
                           ? "admin and instructor can't send question"
                           : "ask any query?"}
                       </Typography>
@@ -314,6 +356,34 @@ const InstructorProfile = () => {
                       sx={{ backgroundColor: "#1b2640", color: "#fff" }}
                     >
                       <Typography>
+                        <div>
+                          {!qaLoading && (
+                            <>
+                              {qa?.map((item) => (
+                                <div className="border-2 border-gray-500 rounded-lg my-4 px-2 md:px-5">
+                                  <h1 className="text-end flex flex-col  text-gray-200 my-2">
+                                    <span className="text-xs text-green-500">
+                                      {item?.user?.displayName}
+                                    </span>
+                                    {item?.question}
+                                  </h1>
+                                  <h1 className="text-start flex flex-col text-gray-200 my-2">
+                                    <span className="text-xs text-purple-500">
+                                      {item?.instructor?.name}
+                                    </span>
+                                    {item?.answer ? (
+                                      item?.answer
+                                    ) : (
+                                      <span className="text-yellow-400">
+                                        "Pending..."
+                                      </span>
+                                    )}
+                                  </h1>
+                                </div>
+                              ))}
+                            </>
+                          )}
+                        </div>
                         <form onSubmit={handleSubmit}>
                           <div className="input-box gap-0 flex items-center">
                             <BsFillPatchQuestionFill className="text-purple-500 text-xl mx-2 " />
@@ -321,28 +391,19 @@ const InstructorProfile = () => {
                             <input
                               type="text"
                               placeholder={`${
-                                (!loading &&
-                                  instructor[0]?.role &&
-                                  role === "instructor") ||
-                                (instructor[0]?.role && role === "admin")
+                                role === "instructor" || role === "admin"
                                   ? "Not Available "
                                   : "Send Your Question"
                               }`}
                               name="question"
                               disabled={
-                                !loading &&
-                                ((instructor[0]?.role &&
-                                  role === "instructor") ||
-                                  (instructor[0]?.role && role === "admin"))
+                                role === "instructor" || role === "admin"
                               }
                               className="px-5 w-full outline-dashed outline-purple-500 focus:border-none border-none focus:outline-purple-500 bg-lightCard"
                             />
                             <Button
                               disabled={
-                                !loading &&
-                                ((instructor[0]?.role &&
-                                  role === "instructor") ||
-                                  (instructor[0]?.role && role === "admin"))
+                                role === "instructor" || role === "admin"
                               }
                               type="submit"
                               sx={{ color: "#a855f7", outline: "none" }}

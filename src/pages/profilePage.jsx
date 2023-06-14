@@ -2,6 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Button,
   CircularProgress,
   Divider,
   Typography,
@@ -19,7 +20,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-import { Edit } from "@mui/icons-material";
+import { Edit, Send } from "@mui/icons-material";
 
 import { BsTelephoneFill } from "react-icons/bs";
 import { useRef } from "react";
@@ -106,7 +107,7 @@ const ProfilePage = () => {
     isError,
   } = usePutData(`/update/user?email=${user?.email}`);
 
-  const handleUpdateProfileStudent = (e) => {
+  const handleUpdateProfileStudent = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -115,6 +116,10 @@ const ProfilePage = () => {
     const gender = form.gender.value;
     console.log(name, address, number, gender);
     mutate({ name: name, address: address, number: number, gender: gender });
+    await updateProfile(user, {
+      displayName: name,
+      phoneNumber: number,
+    });
     if (!isError) {
       refetch();
       Swal.fire({
@@ -252,41 +257,22 @@ const ProfilePage = () => {
                   </div>
                   <div className="w-full lg:w-4/12 my-16 px-2 lg:order-3  lg:text-right flex-col rounded lg:flex h-44 overflow-y-auto hidden justify-start  items-start lg:self-center">
                     <h1 className="absolute top-10 text-gray-400">Q&A</h1>
-                    <div className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-full justify-end items-end">
-                      <h1 className="text-xs  text-green-400">
-                        Tell me About Your Course
+                    <div>
+                      <div className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-full justify-end items-end">
+                        <h1 className="text-xs  text-green-400">
+                          Tell me About Your Course
+                        </h1>
+                        <div className="w-full  text-start  text-purple-400 text-sm ">
+                          lorem400
+                        </div>
+                        <div className="text-start text-gray-300 text-xs">
+                          Lorem ipsum, dolor sit amet consectetur adipisicing
+                          elit. Accusantium, placeat?
+                        </div>
+                      </div>
+                      <h1 className="text-gray-400 flex justify-center items-center mx-auto">
+                        No Data
                       </h1>
-                      <div className="w-full  text-start  text-purple-400 text-sm ">
-                        lorem400
-                      </div>
-                      <div className="text-start text-gray-300 text-xs">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Accusantium, placeat?
-                      </div>
-                    </div>
-                    <div className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-full justify-end items-end">
-                      <h1 className="text-xs  text-green-400">
-                        Tell me About Your Course
-                      </h1>
-                      <div className="w-full  text-start  text-purple-400 text-sm ">
-                        lorem400
-                      </div>
-                      <div className="text-start text-gray-300 text-xs">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Accusantium, placeat?
-                      </div>
-                    </div>
-                    <div className="flex flex-col border-2  border-gray-600 px-8 py-4 my-2 rounded-full justify-end items-end">
-                      <h1 className="text-xs  text-green-400">
-                        Tell me About Your Course
-                      </h1>
-                      <div className="w-full  text-start  text-purple-400 text-sm ">
-                        lorem400
-                      </div>
-                      <div className="text-start text-gray-300 text-xs">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Accusantium, placeat?
-                      </div>
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 pt-4 lg:order-1">
