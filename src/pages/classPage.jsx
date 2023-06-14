@@ -19,7 +19,7 @@ const ClassPage = () => {
   useEffect(() => {
     if (user?.displayName) {
       axios
-        .get(`https://melodify-server.onrender.com/user?email=${user?.email}`)
+        .get(`https://melodify-server.onrender.comuser?email=${user?.email}`)
         .then((response) => {
           const data = response.data;
           localStorage.setItem("role", data[0]?.role);
@@ -54,7 +54,7 @@ const ClassPage = () => {
 
     axios
       .post(
-        "https://melodify-server.onrender.com/user/selectedClass",
+        "https://melodify-server.onrender.comuser/selectedClass",
         selectedClasses,
         {
           headers: {

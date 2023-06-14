@@ -62,7 +62,7 @@ const ClassAdd = () => {
 
       try {
         const response = await axios.post(
-          "https://melodify-server.onrender.com/class",
+          "https://melodify-server.onrender.comclass",
           { newClass },
           {
             headers: {

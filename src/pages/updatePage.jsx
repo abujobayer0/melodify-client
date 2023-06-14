@@ -14,7 +14,7 @@ const UpdatePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`https://melodify-server.onrender.com/all/classes/${id}`)
+    fetch(`https://melodify-server.onrender.comall/classes/${id}`)
       .then((res) => res.json())
       .then((data) => setClassItem(data[0]));
   }, []);
@@ -31,7 +31,7 @@ const UpdatePage = () => {
     try {
       setLoading(true);
 
-      fetch(`https://melodify-server.onrender.com/classes/update?id=${id}`, {
+      fetch(`https://melodify-server.onrender.comclasses/update?id=${id}`, {
         method: "PUT",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(updatedClass),

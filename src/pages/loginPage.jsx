@@ -33,13 +33,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
   const [user] = useAuthState(auth);
-  const [imageUploading, setImageUploading] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const localImageRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
+  const [imageUploading, setImageUploading] = useState(false);
 
   const uploadImage = async () => {
     setImageUploading(true);
@@ -67,7 +67,7 @@ const LoginPage = () => {
         const user = result.user;
         setLoadingLogin(true);
         fetch(
-          `https://melodify-server.onrender.com/userExists?email=${user.email}`
+          `https://melodify-server.onrender.comuserExists?email=${user.email}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -76,7 +76,7 @@ const LoginPage = () => {
               setLoadingLogin(false);
               navigate(from);
             } else {
-              fetch("https://melodify-server.onrender.com/users", {
+              fetch("https://melodify-server.onrender.comusers", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -116,7 +116,7 @@ const LoginPage = () => {
         setLoadingLogin(true);
 
         form.reset();
-        fetch(`https://melodify-server.onrender.com/user?email=${user?.email}`)
+        fetch(`https://melodify-server.onrender.comuser?email=${user?.email}`)
           .then((res) => res.json())
           .then((data) => {
             localStorage.setItem("role", data[0]?.role);
@@ -168,7 +168,7 @@ const LoginPage = () => {
                 photoURL: image || null,
               });
 
-              fetch("https://melodify-server.onrender.com/users", {
+              fetch("https://melodify-server.onrender.comusers", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -187,7 +187,7 @@ const LoginPage = () => {
               setLoading(false);
               form.reset();
               fetch(
-                `https://melodify-server.onrender.com/user?email=${user?.email}`
+                `https://melodify-server.onrender.comuser?email=${user?.email}`
               )
                 .then((res) => res.json())
                 .then((data) => {

@@ -29,7 +29,7 @@ const AdminDashboard = () => {
   const [instructorCount, setInstructorCount] = useState(0);
   useEffect(() => {
     fetch(
-      "https://melodify-server.onrender.com/admin/classes/instructors/users/count"
+      "https://melodify-server.onrender.comadmin/classes/instructors/users/count"
     )
       .then((res) => res.json())
       .then((data) => {

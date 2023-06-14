@@ -19,12 +19,12 @@ const Users = () => {
   const [fetchdata, setFetch] = useState(true);
 
   useEffect(() => {
-    fetch(`https://melodify-server.onrender.com/users`)
+    fetch(`https://melodify-server.onrender.comusers`)
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, [fetchdata]);
   const handleAdmin = (id) => {
-    fetch(`https://melodify-server.onrender.com/users/role?id=${id}`, {
+    fetch(`https://melodify-server.onrender.comusers/role?id=${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -38,7 +38,7 @@ const Users = () => {
   };
 
   const handleInstructor = (id) => {
-    fetch(`https://melodify-server.onrender.com/users/role?id=${id}`, {
+    fetch(`https://melodify-server.onrender.comusers/role?id=${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
