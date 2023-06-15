@@ -18,6 +18,10 @@
   font-family: "Poppins", sans-serif;
   /* background-color: #111827; */
 }
+.root {
+  width: 100%;
+  background-color: #1e2044;
+}
 .active {
   color: #a855f7;
 }
@@ -28,7 +32,18 @@
   position: relative;
   overflow: hidden;
 }
+.root::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: -1;
 
+  background: linear-gradient(to bottom, #8b4dff54, #4d5fff8a, #302f2c49);
+}
 .home::before {
   content: "";
   position: absolute;
@@ -42,9 +57,9 @@
   background: linear-gradient(to bottom, #8b4dff54, #4d5fff8a, #302f2c49);
 }
 
-.home::before {
+/* .home::before {
   filter: blur(40px);
-}
+} */
 .homeButton {
   position: relative;
   overflow: hidden;

@@ -30,6 +30,7 @@ import Swal from "sweetalert2";
 import { usePutData } from "../hooks/usePutData";
 import { useEffect } from "react";
 import teaching from "../assets/teaching.svg";
+import admin from "../assets/admin.svg";
 const auth = getAuth(app);
 const ProfilePage = () => {
   const [user] = useAuthState(auth);
@@ -112,7 +113,7 @@ const ProfilePage = () => {
     const address = form.address.value;
     const number = form.number.value;
     const gender = form.gender.value;
-    const iframe = form.gender.value;
+    const iframe = form.iframe.value;
     console.log(name, address, number, gender);
     mutate({
       name: name,
@@ -330,9 +331,25 @@ const ProfilePage = () => {
                     ) : (
                       <div className="w-full flex flex-col gap-2  text-purple-500">
                         <span className="my-2 headline">
-                          Welcome Back Instructor
+                          Welcome Back
+                          <span className="px-2">
+                            {role && userRole === "instructor"
+                              ? "Instructor"
+                              : role && userRole === "admin"
+                              ? "Admin"
+                              : ""}
+                          </span>
                         </span>
-                        <img src={teaching} alt="" />
+                        <img
+                          src={
+                            role && userRole === "instructor"
+                              ? teaching
+                              : role && userRole === "admin"
+                              ? admin
+                              : ""
+                          }
+                          alt=""
+                        />
                       </div>
                     )}
                   </div>

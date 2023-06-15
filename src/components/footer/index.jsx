@@ -20,7 +20,7 @@ const Footer = ({ isDarkMode }) => {
                       isDarkMode ? "text-gray-400" : "text-gray-700"
                     } transition-colors duration-300 hover:text-deep-purple-accent-200`}
                   >
-                    Guiter
+                    Space Shuttle
                   </a>
                 </li>
                 <li>
@@ -30,7 +30,7 @@ const Footer = ({ isDarkMode }) => {
                       isDarkMode ? "text-gray-400" : "text-gray-700"
                     } transition-colors duration-300 hover:text-deep-purple-accent-200`}
                   >
-                    Piano
+                    Rocket Scince
                   </a>
                 </li>
                 <li>
@@ -40,17 +40,7 @@ const Footer = ({ isDarkMode }) => {
                       isDarkMode ? "text-gray-400" : "text-gray-700"
                     } transition-colors duration-300 hover:text-deep-purple-accent-200`}
                   >
-                    Drums
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className={`${
-                      isDarkMode ? "text-gray-400" : "text-gray-700"
-                    } transition-colors duration-300 hover:text-deep-purple-accent-200`}
-                  >
-                    Violin
+                    Solar System
                   </a>
                 </li>
               </ul>
@@ -61,7 +51,7 @@ const Footer = ({ isDarkMode }) => {
                   isDarkMode ? "text-gray-100" : "text-gray-800"
                 } `}
               >
-                Sheet Music
+                Astronomy
               </p>
               <ul className="mt-2 space-y-2">
                 <li>
@@ -71,7 +61,7 @@ const Footer = ({ isDarkMode }) => {
                       isDarkMode ? "text-gray-400" : "text-gray-700"
                     } transition-colors duration-300 hover:text-deep-purple-accent-200`}
                   >
-                    Music Theory
+                    Fighter Plane
                   </a>
                 </li>
                 <li>
@@ -81,7 +71,7 @@ const Footer = ({ isDarkMode }) => {
                       isDarkMode ? "text-gray-400" : "text-gray-700"
                     } transition-colors duration-300 hover:text-deep-purple-accent-200`}
                   >
-                    Technique Exercises
+                    Space Station
                   </a>
                 </li>
               </ul>

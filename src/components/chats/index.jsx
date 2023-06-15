@@ -42,7 +42,7 @@ const ChatBox = () => {
   };
   return (
     <div className="w-full bg-lightCard mt-4 md:mt-0 overflow-y-auto h-screen  md:ml-4 rounded-lg ">
-      <div className="text-3xl sm:text-4xl md:text-5xl gap-2 p-4 items-center flex justify-center   text-gray-400 border-b-2 home  border-gray-400 rounded-full">
+      <div className="text-3xl sm:text-4xl md:text-5xl gap-2 p-4 items-center flex justify-center   text-gray-400 border-b-2  border-gray-400 rounded-full">
         <Chat sx={{ fontSize: { xs: 35, md: 45 } }} />
         Chats
       </div>
