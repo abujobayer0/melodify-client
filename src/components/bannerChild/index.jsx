@@ -12,11 +12,11 @@ const BannerChild = ({
 }) => {
   return (
     <>
-      <div className="w-full   border-0 h-[600px]">
+      <div className="w-full   border-0 h-[600px] ">
         <img
           src={img}
-          className={`w-full  h-screen ${!img && "opacity-0"}    md:h-auto 
-           object-cover brightness`}
+          className={`w-full  h-screen  ${!img && "opacity-0"}    md:h-auto 
+           object-cover object-right-top  brightness`}
           alt=""
         />
       </div>
@@ -24,7 +24,7 @@ const BannerChild = ({
         <span className="w-full headline flex-col text-3xl xs:text-4xl md:text-6xl flex items-start justify-start">
           <span className="flex">
             <h1 className="headline ">{lineOne}</h1>
-            <span className="px-4 primary-text text-4xl sm:text-6xl ">
+            <span className="px-4  primary-text text-4xl   home border-r-4 border-gray-300 rounded-full shadow-gray-100 sm:text-6xl ">
               {styledText}
             </span>
           </span>

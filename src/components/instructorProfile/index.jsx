@@ -36,17 +36,11 @@ const InstructorProfile = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [email]);
-  const {
-    data: instructor,
-    isLoading: loading,
-    error: classError,
-  } = useGetData(`/user?email=${email}`);
-  console.log(classError);
-  const {
-    data: classes,
-
-    error,
-  } = useGetData(`/instructor/classes?email=${email}`);
+  const { data: instructor, isLoading: loading } = useGetData(
+    `/user?email=${email}`
+  );
+  console.log(instructor);
+  const { data: classes } = useGetData(`/instructor/classes?email=${email}`);
   const { data: enrollStudent } = useGetData(
     `/enroll/totalLength?email=${email}`
   );
@@ -80,16 +74,28 @@ const InstructorProfile = () => {
     `/enrolled/single/instructor?email=${user?.email}&&instructorEmail=${email}`
   );
 
-  console.log("total enrolled count from serfver", user?.email, email);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const question = form.question.value;
-
+    if (!user?.email) {
+      navigate("/login");
+      Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: "Please login before send a message? !",
+        showConfirmButton: false,
+        timer: 2000,
+        customClass: {
+          popup: "custom-swal-container",
+          icon: "custom-swal-icon",
+        },
+      });
+      return;
+    }
     const QA = {
       question: question,
       user: user,
-
       instructor: !loading && instructor[0],
     };
 
@@ -207,7 +213,7 @@ const InstructorProfile = () => {
             className="absolute top-0 w-full h-full   bg-center bg-cover"
             style={{
               backgroundImage:
-                'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',
+                'url("https://www.fmsp.com/wp-content/uploads/2018/01/Kennedy-Space-Center-Visitor_Space-Shuttle-Atlantis_1.jpg")',
             }}
           >
             <span
@@ -258,7 +264,7 @@ const InstructorProfile = () => {
                     </div>
                   </div>
                   <div
-                    className="w-full lg:w-4/12 px-4 lg:order-3  lg:text-right rounded lg:flex hidden justify-center  items-center lg:self-center"
+                    className="w-full lg:w-4/12 px-4 lg:order-3 my-4 md:my-0  lg:text-right rounded lg:flex  justify-center  items-center lg:self-center"
                     style={{
                       backgroundImage:
                         "url(https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80)",
@@ -267,7 +273,7 @@ const InstructorProfile = () => {
                     }}
                   >
                     <div className="pb-6 px-3 lg:mt-32  sm:mt-0">
-                      <VideoButton />
+                      <VideoButton iframe={!loading && instructor[0]?.iframe} />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 pt-4 lg:order-1">

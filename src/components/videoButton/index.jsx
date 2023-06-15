@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./VideoOverlay.style.css";
 import Dialog from "@mui/material/Dialog";
 
-const VideoButton = () => {
+const VideoButton = ({ iframe }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -13,6 +13,7 @@ const VideoButton = () => {
     setOpen(false);
   };
 
+  const cleanedText = iframe ? iframe.replace(/"/g, "") : "";
   return (
     <>
       <a
@@ -29,15 +30,13 @@ const VideoButton = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/WsPz2UjstN4"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+        {iframe ? (
+          <div dangerouslySetInnerHTML={{ __html: cleanedText }} />
+        ) : (
+          <span className="bg-lightCard p-10 text-white text-lg">
+            No Intro Video
+          </span>
+        )}
       </Dialog>
     </>
   );

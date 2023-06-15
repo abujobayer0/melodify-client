@@ -7,7 +7,14 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { BubbleChart, ClassAdd, Footer, NavBar, OwnClass } from "../components";
+import {
+  BubbleChart,
+  ChatBox,
+  ClassAdd,
+  Footer,
+  NavBar,
+  OwnClass,
+} from "../components";
 import {
   FaChartPie,
   FaGuitar,
@@ -19,6 +26,7 @@ import app from "../utils/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { Chat } from "@mui/icons-material";
 const auth = getAuth(app);
 const Dashboard = () => {
   const [index, setIndex] = useState(0);
@@ -127,6 +135,24 @@ const Dashboard = () => {
               <ListItemText primary={"My Classes"} />
             </ListItemButton>
           </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => setIndex(3)}
+              sx={{
+                backgroundColor: index == 3 ? "#d8b4fe" : "#fff",
+
+                borderRadius: "20px",
+                "&&:hover": {
+                  backgroundColor: "#d8b4fe",
+                },
+              }}
+            >
+              <ListItemIcon>
+                <Chat />
+              </ListItemIcon>
+              <ListItemText primary={"Chats"} />
+            </ListItemButton>
+          </ListItem>
         </List>
         {index == 0 ? (
           <div className="flex flex-col justify-start items-center gap-10">
@@ -163,6 +189,8 @@ const Dashboard = () => {
           <ClassAdd user={user} />
         ) : index === 2 ? (
           <OwnClass />
+        ) : index === 3 ? (
+          <ChatBox />
         ) : (
           ""
         )}

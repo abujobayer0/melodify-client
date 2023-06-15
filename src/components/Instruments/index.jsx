@@ -12,10 +12,10 @@ const Instruments = () => {
         variants={textVariant()}
       >
         <p className="sm:text-[18px]  text-[14px] bg-dark text-gray-100 uppercase tracking-wider">
-          Introduction
+          Topics
         </p>
         <h2 className="text-gray-100 font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">
-          Instruments
+          What will you learn
         </h2>
       </motion.div>
 
@@ -23,12 +23,11 @@ const Instruments = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className=" text-secondary bg-dark p-4 rounded  md:px-10 px-5  text-center mx-auto text-gray-200 text-[17px] max-w-3xl leading-[30px]"
       >
-        Explore our range of guitars, both acoustic and electric, that offer
-        advanced features such as integrated tuners, digital effects, and online
-        connectivity for learning resources. If youre interested in exploring
-        the world of synthesis and sound design, our synthesizers and MIDI
-        controllers offer endless possibilities for creating unique sounds and
-        melodies.
+        In our space learning platform, prepare to embark on an awe-inspiring
+        cosmic journey as you delve into the mysteries of the universe. From
+        exploring the wonders of our solar system to unraveling the secrets of
+        distant galaxies, our carefully crafted curriculum offers a
+        comprehensive understanding of space science.
       </motion.p>
 
       <div className="mt-20 grid grid-cols-1 xs:grid-cols-2 p-4 rounded bg-dark md:grid-cols-3 gap-10">

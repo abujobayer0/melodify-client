@@ -1,3 +1,4 @@
+import { FaSpaceShuttle } from "react-icons/fa";
 import { GiMusicalScore } from "react-icons/gi";
 import { TbSignature } from "react-icons/tb";
 const Logo = ({ isBlack }) => {
@@ -10,9 +11,9 @@ const Logo = ({ isBlack }) => {
       <span className="text-purple-500">
         <TbSignature />
       </span>
-      Melodify{" "}
+      spacecamp
       <span className="text-purple-500">
-        <GiMusicalScore />
+        <FaSpaceShuttle />
       </span>{" "}
     </div>
   );

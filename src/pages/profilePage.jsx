@@ -33,6 +33,7 @@ import teaching from "../assets/teaching.svg";
 const auth = getAuth(app);
 const ProfilePage = () => {
   const [user] = useAuthState(auth);
+  const { iframeReadOnly, setIframeReadonly } = useState(true);
   const localImageRef = useRef();
   const {
     data: student,
@@ -46,6 +47,9 @@ const ProfilePage = () => {
   const { mutate: imageUpdate } = usePutData(
     `/update/user/profile/image?email=${user?.email}`
   );
+  const handleIframe = () => {
+    setIframeReadonly((prev) => !prev);
+  };
   const uploadImage = async () => {
     setImageUploading(true);
     const localImage = localImageRef.current.files[0];
@@ -108,8 +112,15 @@ const ProfilePage = () => {
     const address = form.address.value;
     const number = form.number.value;
     const gender = form.gender.value;
+    const iframe = form.gender.value;
     console.log(name, address, number, gender);
-    mutate({ name: name, address: address, number: number, gender: gender });
+    mutate({
+      name: name,
+      iframe: iframe,
+      address: address,
+      number: number,
+      gender: gender,
+    });
     await updateProfile(user, {
       displayName: name,
       phoneNumber: number,
@@ -151,6 +162,7 @@ const ProfilePage = () => {
   }, []);
   const role = localStorage.getItem("role");
   const userRole = student && student[0]?.role;
+  console.log(student ? student : "");
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -162,7 +174,7 @@ const ProfilePage = () => {
             className="absolute top-0 w-full h-full   bg-center bg-cover"
             style={{
               backgroundImage:
-                'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',
+                'url("https://i.ibb.co/mCzB6Xv/order-of-the-planets.jpg")',
             }}
           >
             <span
@@ -466,10 +478,33 @@ const ProfilePage = () => {
                                 <option value="custom">custom</option>
                               </select>
                             </div>
-                            <div className="bg-purple-600 px-6 py-4 rounded-full">
-                              <input type="submit" value="Update " />
-                            </div>
-                          </div>{" "}
+                          </div>
+                          {role && userRole === "instructor" && (
+                            <>
+                              <label className="bg-dark py-2 text-xs">
+                                Update iframe for intro video in instructor
+                                profile
+                              </label>
+                              <textarea
+                                rows={10}
+                                name="iframe"
+                                className="bg-black text-start  p-4 mx-6 text-white z-50 border-none outline-none"
+                                cols={50}
+                                defaultValue={
+                                  !loading && student[0]?.iframe
+                                    ? student[0]?.iframe
+                                    : "Add iframe from youtube for intro video"
+                                }
+                              />
+                            </>
+                          )}
+                          <button
+                            type="submit"
+                            className="bg-purple-600 z-50 px-6 py-4 rounded-full"
+                          >
+                            Update
+                          </button>
+
                           {/* {error && <h2 className="text-red-500">{error}</h2>} */}
                         </div>
                       </form>

@@ -106,7 +106,7 @@ const ClassPage = () => {
           with Expert Guidance!
         </p>
       </div>
-      <div className="grid  bg-dark grid-cols-1  gap-4 px-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid  bg-dark grid-cols-1 min-h-screen gap-4 px-5 md:grid-cols-2 lg:grid-cols-3">
         {data?.map((classItem, indx) => (
           <ClassCard
             key={indx}

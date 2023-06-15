@@ -24,28 +24,15 @@ const Banner = () => {
         <SwiperSlide>
           <BannerChild
             img={
-              "https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/p22-011-147-web.jpg"
             }
           />
         </SwiperSlide>
+
         <SwiperSlide>
           <BannerChild
             img={
-              "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-            }
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerChild
-            img={
-              "https://images.unsplash.com/photo-1524578471438-cdd96d68d82c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-            }
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerChild
-            img={
-              "https://images.unsplash.com/photo-1594623930572-300a3011d9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              "https://www.fmsp.com/wp-content/uploads/2018/01/Kennedy-Space-Center-Visitor_Space-Shuttle-Atlantis_1.jpg"
             }
           />
         </SwiperSlide>
@@ -54,11 +41,11 @@ const Banner = () => {
         <BannerChild
           isButton
           lineOne={"Learn The "}
-          styledText={"Music"}
+          styledText={"Space"}
           lineTwo={"From The Masters"}
           buttonText={"Learn More"}
           para={
-            "Milodify Empowering musicians with video lessons, interactive exercises, and personalized progress tracking. Unlock your creative potential and connect with a vibrant community."
+            "SpaceCamp: Ignite Your Passion for the Cosmos. Explore the Vast Frontiers of Space with Expert Instructors. Dive into captivating lessons on Planets, Stars, and Galaxies. Engage in Interactive Activities, Uncover Cosmic Mysteries, and Connect with a Thriving Community of Space Enthusiasts. Embark on a Stellar Learning Journey and Unlock the Wonders of the Universe at SpaceCamp."
           }
         />
       </div>
