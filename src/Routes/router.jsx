@@ -50,7 +50,14 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
-  { path: "/class/:id", element: <ClassViewPage /> },
+  {
+    path: "/class/:id",
+    element: (
+      <PrivateRoute>
+        <ClassViewPage />
+      </PrivateRoute>
+    ),
+  },
   {
     path: "/login",
     element: <LoginPage />,

@@ -27,9 +27,11 @@ import TiltCard from "./tiltCard";
 import InstructorProfile from "./instructorProfile";
 import ThemeSwitcher from "./ThemeSwitcher";
 import ChatBox from "./chats";
+import StudentCard from "./studentsCard";
 export {
   ChatBox,
   ThemeSwitcher,
+  StudentCard,
   InstructorProfile,
   TiltCard,
   PrimaryProgress,

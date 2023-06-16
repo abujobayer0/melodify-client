@@ -179,21 +179,3 @@
   transform: translateX(0px);
   visibility: visible;
 }
-.b {
-  display: inline-block;
-  font-size: 1.1em;
-  color: #fff;
-  background: linear-gradient(315deg, #1f2551, #ff0058);
-  visibility: hidden;
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: all 0.3s ease-in-out;
-  margin-top: 5px;
-  transform: translateX(-20px);
-}
-.container .box:hover .b {
-  transform: translateX(0px);
-  visibility: visible;
-}

@@ -53,7 +53,7 @@ const ClassCard = ({ classItem, handleSelect }) => {
       <div className="flex z-50 justify-between">
         <div className="w-full">
           <button
-            className={`w-full z-10 bg-purple-500 font-semibold py-4 rounded-lg ${
+            className={`w-full z-10 btn font-semibold py-4 rounded-lg ${
               role === "instructor" || role === "admin" || available_seat === 0
                 ? "opacity-50 cursor-not-allowed"
                 : ""

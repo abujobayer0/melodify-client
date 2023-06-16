@@ -203,7 +203,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="bg-dark h-screen overflow-hidden">
+    <div className="bg-dark pb-44  overflow-hidden">
       <NavBar isBlack />
       <div className="container  bg-dark">
         <input type="checkbox" id="flip" />

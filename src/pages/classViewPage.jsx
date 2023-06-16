@@ -1,15 +1,52 @@
-import { Footer, NavBar, PrimaryProgress } from "../components";
+import { Footer, NavBar, PrimaryProgress, StudentCard } from "../components";
 import { Button, Divider } from "@mui/material";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import { FaChalkboardTeacher, FaEnvelope } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useGetData } from "../hooks/useGetData";
 import classIcon from "../assets/class.svg";
+import Swal from "sweetalert2";
 const ClassViewPage = () => {
   const { id } = useParams();
-  const { data, loading } = useGetData(`/class/view/students/${id}`);
-  console.log(!loading && data?.classes[0]?.newClass?.image);
+  const { data, loading, refetch } = useGetData(`/class/view/students/${id}`);
+
+  console.log(!loading && data?.students);
+  const students = !loading && data?.students;
+  const handleBan = (e) => {
+    const classId = data?.classes[0]?._id;
+    const name = data?.classes[0]?.newClass?.name;
+    const instructorEmail = data?.classes[0]?.newClass?.email;
+    console.log(e, !loading && classId);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, Ban him!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://melodify-server.onrender.com/class/student/ban`, {
+          method: "PUT",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({
+            email: e,
+            id: classId,
+            name: name,
+            instructorEmail: instructorEmail,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+        refetch();
+        Swal.fire("Banned!", "Your Student has been Banned.", "success");
+      }
+    });
+  };
+  console.log(data?.classes[0]);
   return (
     <div className="bg-dark">
       <NavBar isBlack />
@@ -147,12 +184,16 @@ const ClassViewPage = () => {
       )}
       <h1 className="text-4xl font-semibold  pb-24 text-gray-200">
         See
-        <span className="px-2 uppercase text-purple-500">
-          {/* {!loading && <>{instructor[0]?.name}</>} */}
+        <span className="px-2 uppercase text-purple-500 headline">
+          This Class
         </span>
         Students
       </h1>
-      <section className="min-h-screen grid gap-4 py-5 px-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 home w-full bg-[#1b2640"></section>
+      <section className="min-h-screen grid gap-4 py-5 px-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 home w-full bg-[#1b2640">
+        {students?.map((student, indx) => (
+          <StudentCard key={indx} handleBan={handleBan} student={student} />
+        ))}
+      </section>
       <Footer isDarkMode />
     </div>
   );

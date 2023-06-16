@@ -124,3 +124,6 @@
 .active {
   color: #34419b;
 }
+.btn {
+  background: linear-gradient(315deg, #1f2551, #9333ea);
+}
