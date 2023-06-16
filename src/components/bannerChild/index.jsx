@@ -24,7 +24,7 @@ const BannerChild = ({
         <span className="w-full headline flex-col text-3xl xs:text-4xl md:text-7xl flex items-start justify-start">
           <span className="flex items-center">
             <h1 className="headline ">{lineOne}</h1>
-            <span className="px-4  primary-text text-4xl    border-r-4 border-gray-300 rounded-full shadow-gray-100 sm:text-7xl ">
+            <span className="px-4  primary-text text-4xl     border-gray-300 rounded-full border-r-4  shadow-gray-100 sm:text-7xl ">
               {styledText}
             </span>
           </span>

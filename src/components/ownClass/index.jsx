@@ -120,17 +120,19 @@ const OwnClass = () => {
                   )}
                 </TableCell>
                 <TableCell sx={{ color: "#fff" }}>
-                  <Link to={`/class/${classItem?._id}`}>
-                    <Button
-                      sx={{
-                        width: "150px",
-                        backgroundColor: "#a855f7",
-                        color: "#fff",
-                      }}
-                    >
-                      <FaEye /> View Class
-                    </Button>
-                  </Link>
+                  {classItem.newClass.status === "approved" && (
+                    <Link to={`/class/${classItem?._id}`}>
+                      <Button
+                        sx={{
+                          width: "150px",
+                          backgroundColor: "#a855f7",
+                          color: "#fff",
+                        }}
+                      >
+                        <FaEye /> View Class
+                      </Button>
+                    </Link>
+                  )}
                 </TableCell>
                 <TableCell>
                   <Button

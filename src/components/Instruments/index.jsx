@@ -7,10 +7,7 @@ import SectionWrapper from "../sectionWrapper";
 const Instruments = () => {
   return (
     <>
-      <motion.div
-        className="bg-gradient-new   rounded "
-        variants={textVariant()}
-      >
+      <motion.div className="bg-gradient-new  pt-10  rounded ">
         <p className="sm:text-[18px]  text-[14px] bg-dark text-gray-100 uppercase tracking-wider">
           Quick View
         </p>
@@ -19,10 +16,7 @@ const Instruments = () => {
         </h2>
       </motion.div>
 
-      <motion.p
-        variants={fadeIn("", "", 0.1, 1)}
-        className=" text-secondary bg-dark p-4 rounded  md:px-10 px-5  text-center mx-auto text-gray-200 text-[17px] max-w-3xl leading-[30px]"
-      >
+      <motion.p className=" text-secondary bg-dark p-4 rounded  md:px-10 px-5  text-center mx-auto text-gray-200 text-[17px] max-w-3xl leading-[30px]">
         In our space learning platform, prepare to embark on an awe-inspiring
         cosmic journey as you delve into the mysteries of the universe. From
         exploring the wonders of our solar system to unraveling the secrets of
@@ -39,4 +33,4 @@ const Instruments = () => {
   );
 };
 
-export default SectionWrapper(Instruments, "instructors");
+export default Instruments;

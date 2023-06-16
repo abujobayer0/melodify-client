@@ -17,34 +17,39 @@ const ClassViewPage = () => {
     const name = data?.classes[0]?.newClass?.name;
     const instructorEmail = data?.classes[0]?.newClass?.email;
     console.log(e, !loading && classId);
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, Ban him!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`https://melodify-server.onrender.com/class/student/ban`, {
-          method: "PUT",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({
-            email: e,
-            id: classId,
-            name: name,
-            instructorEmail: instructorEmail,
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          });
-        refetch();
-        Swal.fire("Banned!", "Your Student has been Banned.", "success");
-      }
-    });
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, Ban him!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`https://melodify-server.onrender.com/class/student/ban`, {
+            method: "PUT",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+              email: e,
+              id: classId,
+              name: name,
+              instructorEmail: instructorEmail,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+            });
+          Swal.fire("Banned!", "Your Student has been Banned.", "success");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      refetch();
+    }
   };
   console.log(data?.classes[0]);
   return (

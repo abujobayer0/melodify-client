@@ -28,6 +28,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ExpandMore, Send } from "@mui/icons-material";
 import { useEffect } from "react";
 import { BsFillPatchQuestionFill } from "react-icons/bs";
+import { Toaster, toast } from "react-hot-toast";
 const auth = getAuth(app);
 const InstructorProfile = () => {
   const { email } = useParams();
@@ -109,17 +110,7 @@ const InstructorProfile = () => {
       })
         .then((res) => res.json())
         .then((data) => console.log("datas", data));
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Your Question Send Successfully? !",
-        showConfirmButton: false,
-        timer: 1500,
-        customClass: {
-          popup: "custom-swal-container",
-          icon: "custom-swal-icon",
-        },
-      });
+      toast.success("Message sent!");
       refetch();
       form.reset();
     } else {
@@ -206,7 +197,7 @@ const InstructorProfile = () => {
     <div className="bg-dark">
       <NavBar isBlack />
       <Divider />
-
+      <Toaster />
       <main className="  bg-dark">
         <section className="relative block h-500-px">
           <div
