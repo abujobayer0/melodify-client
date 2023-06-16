@@ -18,6 +18,7 @@ import {
 import { Check, Feedback } from "@mui/icons-material";
 
 import { TbBan } from "react-icons/tb";
+import { useGetData } from "../../../hooks/useGetData";
 
 const ManageUsers = () => {
   const [Modalopen, setOpen] = useState(false);
@@ -31,13 +32,15 @@ const ManageUsers = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const [classes, setClasses] = useState([]);
+  // const [classes, setClasses] = useState([]);
 
-  useEffect(() => {
-    fetch(`https://melodify-server.onrender.com/all/classes`)
-      .then((res) => res.json())
-      .then((data) => setClasses(data));
-  }, [fetchdata]);
+  // useEffect(() => {
+  //   fetch(`https://melodify-server.onrender.com/all/classes`)
+  //     .then((res) => res.json())
+  //     .then((data) => setClasses(data));
+  // }, [fetchdata]);
+  const { data, loading, refetch } = useGetData(`/all/classes`);
+  const classes = !loading && data;
   const handleApprove = (id) => {
     fetch(`https://melodify-server.onrender.com/classes/status?id=${id}`, {
       method: "PUT",
@@ -62,6 +65,7 @@ const ManageUsers = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        refetch();
         setFetch((prev) => !prev);
       });
   };
@@ -77,6 +81,7 @@ const ManageUsers = () => {
       .then((res) => res.json())
       .then((data) => {
         setFetch((prev) => !prev);
+        refetch();
         setOpen(false);
       });
   };
@@ -89,7 +94,7 @@ const ManageUsers = () => {
         <Table
           sx={{
             backgroundColor: "#1b2640",
-            minHeight: classes.length === 0 && "100vh",
+            minHeight: classes?.length === 0 && "100vh",
           }}
         >
           <TableHead>
@@ -104,7 +109,7 @@ const ManageUsers = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {classes.map((classItem, index) => (
+            {classes?.map((classItem, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <img

@@ -56,8 +56,8 @@ const ClassViewPage = () => {
     <div className="bg-dark">
       <NavBar isBlack />
       <Divider />
-      {loading ? (
-        <div className="w-full">
+      {!data ? (
+        <div className="w-full h-screen">
           <PrimaryProgress></PrimaryProgress>
         </div>
       ) : (

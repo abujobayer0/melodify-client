@@ -20,24 +20,31 @@ import app from "../utils/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useGetData } from "../hooks/useGetData";
 const auth = getAuth(app);
 const AdminDashboard = () => {
   const [user] = useAuthState(auth);
   const [index, setIndex] = useState(0);
-  const [classCount, setClassCount] = useState(0);
-  const [userCount, setUserCount] = useState(0);
-  const [instructorCount, setInstructorCount] = useState(0);
-  useEffect(() => {
-    fetch(
-      "https://melodify-server.onrender.com/admin/classes/instructors/users/count"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setClassCount(data.classCount);
-        setUserCount(data.userCount);
-        setInstructorCount(data.instructorCount);
-      });
-  }, [index]);
+  // const [classCount, setClassCount] = useState(0);
+  // const [userCount, setUserCount] = useState(0);
+  // const [instructorCount, setInstructorCount] = useState(0);
+  const { data, loading } = useGetData(
+    "/admin/classes/instructors/users/count"
+  );
+  // useEffect(() => {
+  //   fetch(
+  //     "https://melodify-server.onrender.com/admin/classes/instructors/users/count"
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setClassCount(data.classCount);
+  //       setUserCount(data.userCount);
+  //       setInstructorCount(data.instructorCount);
+  //     });
+  // }, [index]);
+  const classCount = !loading && data?.classCount;
+  const instructorCount = !loading && data?.instructorCount;
+  const userCount = !loading && data?.userCount;
   return (
     <div className="bg-dark">
       <NavBar isBlack />

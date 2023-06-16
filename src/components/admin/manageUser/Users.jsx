@@ -12,17 +12,20 @@ import {
 } from "@mui/material";
 
 import { FaUser } from "react-icons/fa";
+import { useGetData } from "../../../hooks/useGetData";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
 
-  const [fetchdata, setFetch] = useState(true);
+  // const [fetchdata, setFetch] = useState(true);
 
-  useEffect(() => {
-    fetch(`https://melodify-server.onrender.com/users`)
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, [fetchdata]);
+  // useEffect(() => {
+  //   fetch(`https://melodify-server.onrender.com/users`)
+  //     .then((res) => res.json())
+  //     .then((data) => setUsers(data));
+  // }, [fetchdata]);
+  const { data, loading, refetch } = useGetData("/users");
+  const users = !loading && data;
   const handleAdmin = (id) => {
     fetch(`https://melodify-server.onrender.com/users/role?id=${id}`, {
       method: "PUT",
@@ -33,7 +36,8 @@ const Users = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setFetch((prev) => !prev);
+        refetch();
+        // setFetch((prev) => !prev);
       });
   };
 
@@ -60,7 +64,7 @@ const Users = () => {
         <Table
           sx={{
             backgroundColor: "#1b2640",
-            minHeight: users.length === 0 && "100vh",
+            minHeight: users?.length === 0 && "100vh",
           }}
         >
           <TableHead>
@@ -74,7 +78,7 @@ const Users = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user, index) => (
+            {users?.map((user, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <img className="w-14 rounded-md" src={user.image} alt="" />
