@@ -121,3 +121,6 @@
 .Zindex {
   z-index: 999999;
 }
+.active {
+  color: #34419b;
+}

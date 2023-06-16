@@ -1,34 +1,33 @@
-import guiter from "../assets/music/guitar.png";
-import piano from "../assets/music/piano.png";
-import violin from "../assets/music/violin.png";
-import tabla from "../assets/music/tabla.png";
-import drums from "../assets/music/drum-set.png";
-import accordion from "../assets/music/accordion.png";
-
+import mars from "../assets/music/mars.png";
+import jupitar from "../assets/music/Jupiter.png";
+import mercury from "../assets/music/mercury.png";
+import neptune from "../assets/music/neptune.png";
+import urenus from "../assets/music/urenus.png";
+import earth from "../assets/music/earth.png";
 const services = [
   {
-    title: " Acoustic Guiter",
-    icon: guiter,
+    title: " Mars",
+    icon: mars,
   },
   {
-    title: "Keyboard Synthesizer",
-    icon: piano,
+    title: "Jupitar",
+    icon: jupitar,
   },
   {
-    title: "Violin",
-    icon: violin,
+    title: "Mercury",
+    icon: mercury,
   },
   {
-    title: "Tabla",
-    icon: tabla,
+    title: "Neptune",
+    icon: neptune,
   },
   {
-    title: "Drums Set",
-    icon: drums,
+    title: "Urenus",
+    icon: urenus,
   },
   {
-    title: "Accordion",
-    icon: accordion,
+    title: "Earth",
+    icon: earth,
   },
 ];
 export { services };

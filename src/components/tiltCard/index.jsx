@@ -21,7 +21,7 @@ const TiltCard = ({ index, title, icon }) => {
           <img
             src={icon}
             alt="web-development"
-            className="w-16 h-16 object-contain"
+            className="w-96 h-96 object-contain"
           />
 
           <h3 className="text-white text-[20px] font-bold text-center">

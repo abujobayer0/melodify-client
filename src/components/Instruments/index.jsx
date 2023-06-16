@@ -12,10 +12,10 @@ const Instruments = () => {
         variants={textVariant()}
       >
         <p className="sm:text-[18px]  text-[14px] bg-dark text-gray-100 uppercase tracking-wider">
-          Topics
+          Quick View
         </p>
         <h2 className="text-gray-100 font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">
-          What will you learn
+          Our Universe
         </h2>
       </motion.div>
 

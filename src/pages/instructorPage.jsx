@@ -41,7 +41,7 @@ const InstructorsPage = () => {
               Potential with Expert Guidance!
             </p>
           </div>
-          <div className="grid w-full grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 justify-items-center  items-center lg:grid-cols-4">
+          <div className="grid w-full transition-all ease-in-out grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 justify-items-center  items-center lg:grid-cols-3">
             {data?.map((instructor, indx) => (
               <InstructorCard key={indx} instructor={instructor} />
             ))}
