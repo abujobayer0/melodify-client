@@ -10,6 +10,7 @@ import UpdatePage from "../pages/updatePage";
 import PaymentPage from "../pages/paymentPage";
 import ProfilePage from "../pages/profilePage";
 import InstructorProfilePage from "../pages/instructorProfilePage";
+import ClassViewPage from "../pages/classViewPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  { path: "/class/:id", element: <ClassViewPage /> },
   {
     path: "/login",
     element: <LoginPage />,

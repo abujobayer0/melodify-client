@@ -3,8 +3,10 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 40px 0;
-  background: transparent;
+  /* padding: 40px 0; */
+  margin: 0% !important;
+  background: transparent !important;
+  box-shadow: none !important;
   z-index: 1;
 }
 
@@ -12,11 +14,12 @@
   position: relative;
   width: 320px;
   height: 400px;
+  transition: all 0.5s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px 30px;
-  transition: 0.5s;
+  margin: 0 auto;
+  transition: all 0.5s ease;
 }
 
 .container .box::before {
@@ -56,7 +59,7 @@
 
 .container .box:nth-child(1):before,
 .container .box:nth-child(1):after {
-  background: linear-gradient(315deg, #9333ea, #ff0058);
+  background: linear-gradient(315deg, #9333ea, #1f2551);
 }
 
 .container .box:nth-child(2):before,
@@ -93,7 +96,7 @@
   opacity: 0;
   transition: 0.1s;
   animation: animate 2s ease-in-out infinite;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); */
 }
 
 .container .box:hover span::before {
@@ -117,7 +120,7 @@
   opacity: 0;
   transition: 0.5s;
   animation: animate 2s ease-in-out infinite;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); */
   animation-delay: -1s;
 }
 
@@ -146,7 +149,7 @@
   padding: 20px 40px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
   border-radius: 8px;
   z-index: 1;
   transform: 0.5s;
@@ -158,32 +161,21 @@
   padding: 60px 40px;
 }
 
-.container .box .content h2 {
-  font-size: 2em;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.container .box .content p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  line-height: 1.4em;
-}
-
-.container .box .content a {
+.a {
   display: inline-block;
   font-size: 1.1em;
-  color: #111;
-  background: #fff;
-  padding: 10px;
+  color: #fff;
+  background: linear-gradient(315deg, #1f2551, #9333ea);
+  visibility: hidden;
+  padding: 5px 10px;
   border-radius: 4px;
   text-decoration: none;
   font-weight: 700;
+  transition: all 0.3s ease-in-out;
   margin-top: 5px;
+  transform: translateX(-20px);
 }
-
-.container .box .content a:hover {
-  background: #ffcf4d;
-  border: 1px solid rgba(255, 0, 88, 0.4);
-  box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
+.container .box:hover .a {
+  transform: translateX(0px);
+  visibility: visible;
 }

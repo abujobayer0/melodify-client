@@ -18,15 +18,18 @@ import {
 import {
   FaChartPie,
   FaGuitar,
+  FaLayerGroup,
   FaPlus,
+  FaRocket,
   FaUser,
   FaUserAstronaut,
+  FaWhmcs,
 } from "react-icons/fa";
 import app from "../utils/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Chat } from "@mui/icons-material";
+import { AllInclusive, Chat } from "@mui/icons-material";
 const auth = getAuth(app);
 const Dashboard = () => {
   const [index, setIndex] = useState(0);
@@ -163,13 +166,14 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
                   <div className="w-full bg-blue-400 h-48 flex flex-col justify-end items-start p-4 text-xl uppercase text-gray-200 gap-10 rounded-lg">
                     <span className="flex w-full items-start gap-2 text-7xl justify-start mt-2">
-                      <FaGuitar /> {classCount.length}
+                      <AllInclusive sx={{ fontSize: "55px" }} />{" "}
+                      {classCount.length}
                     </span>
                     Total Class
                   </div>
                   <div className="w-full bg-red-400 h-48 flex flex-col justify-end items-start p-4 text-xl uppercase text-gray-200 gap-10 rounded-lg">
                     <span className="flex w-full items-start gap-2 text-7xl justify-start mt-2">
-                      <FaGuitar />
+                      <FaLayerGroup />
                       {activeCount}
                     </span>
                     Total Approved Class

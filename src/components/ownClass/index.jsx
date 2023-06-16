@@ -66,6 +66,7 @@ const OwnClass = () => {
                 Total Enrolled Students
               </TableCell>
               <TableCell sx={{ color: "#fff" }}>Feedback</TableCell>
+              <TableCell sx={{ color: "#fff" }}>View</TableCell>
               <TableCell sx={{ color: "#fff" }}>Update</TableCell>
             </TableRow>
           </TableHead>
@@ -109,14 +110,27 @@ const OwnClass = () => {
                       onClick={() =>
                         handleClickOpen(classItem.newClass.feedback)
                       }
-                      sx={{ color: "#fff" }}
+                      sx={{ color: "#fff", width: "150px" }}
                     >
                       <FaEye />
                       admin feedback
                     </Button>
                   ) : (
-                    <span className="text-white">No feedback</span>
+                    <span className="text-white ">No feedback</span>
                   )}
+                </TableCell>
+                <TableCell sx={{ color: "#fff" }}>
+                  <Link to={`/class/${classItem?._id}`}>
+                    <Button
+                      sx={{
+                        width: "150px",
+                        backgroundColor: "#a855f7",
+                        color: "#fff",
+                      }}
+                    >
+                      <FaEye /> View Class
+                    </Button>
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <Button

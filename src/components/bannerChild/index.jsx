@@ -21,10 +21,10 @@ const BannerChild = ({
         />
       </div>
       <div className="absolute border-none  text-white">
-        <span className="w-full headline flex-col text-3xl xs:text-4xl md:text-6xl flex items-start justify-start">
-          <span className="flex">
+        <span className="w-full headline flex-col text-3xl xs:text-4xl md:text-7xl flex items-start justify-start">
+          <span className="flex items-center">
             <h1 className="headline ">{lineOne}</h1>
-            <span className="px-4  primary-text text-4xl   home border-r-4 border-gray-300 rounded-full shadow-gray-100 sm:text-6xl ">
+            <span className="px-4  primary-text text-4xl    border-r-4 border-gray-300 rounded-full shadow-gray-100 sm:text-7xl ">
               {styledText}
             </span>
           </span>
